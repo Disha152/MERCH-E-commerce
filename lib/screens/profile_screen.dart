@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
     return const Scaffold(
       bottomNavigationBar: CustomNavBar(),
       drawer: Custom_drawer(),
-      appBar: MyAppBar(title: 'Profile')
+      // appBar: MyAppBar(title: 'Profile')
     );
 
   }

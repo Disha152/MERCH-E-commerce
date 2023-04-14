@@ -1,18 +1,27 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:merch/screens/wishlist.dart';
 
 import '../model/category_model.dart';
 import '../model/products_model.dart';
 import '../widgets/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    List<Product> selectedProducts = [];
+    bool isFavourite = false;
+
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar :  CustomAppBar(),
       drawer: const Custom_drawer(),
       bottomNavigationBar: const CustomNavBar(),
       body: SingleChildScrollView(
@@ -48,30 +57,107 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                          child: SizedBox(
-                            height: 134,
-                            width: 155,
-                            child: Image.network(
-                              Product.product[index].imageUrl,
-                              fit: BoxFit.cover,
-                            ),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                height: 134,
+                                width: 155,
+                                child: Image.network(
+                                  Product.product[index].imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                  child: Container(
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Product.product[index].isFavorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_outline,
+                                        color: Product.product[index].isFavorite
+                                            ? Colors.pink
+                                            : Colors.grey,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          Product.product[index].isFavorite =
+                                              !Product
+                                                  .product[index].isFavorite;
+
+                                          if (Product
+                                              .product[index].isFavorite) {
+                                            selectedProducts
+                                                .add(Product.product[index]);
+                                          } else {
+                                            selectedProducts
+                                                .remove(Product.product[index]);
+                                          }
+
+                                         
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.fromLTRB(11, 5, 0, 1),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 Product.product[index].name,
                                 style: GoogleFonts.poppins(),
                               ),
-                              const SizedBox(height: 2),
-                              Text(
-                                '\$${Product.product[index].price}',
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                    child: Text(
+                                      '\$${Product.product[index].price}',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.shopping_cart_rounded,
+                                          color: Colors.grey,
+                                        ),
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

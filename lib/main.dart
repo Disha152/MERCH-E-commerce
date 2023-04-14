@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'splash_screen': (context) => const SplashScreen(),
           'home_screen': (context) => const HomeScreen(),
-          'wishlist': (context) => const WishList(),
+          'wishlist': (context) => const WishList(selectedProducts: [],),
           'profile': (context) => const Profile(),
           'cart': (context) => const Shopping_cart(),
         },

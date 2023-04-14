@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:merch/colors/app_colors.dart';
+
+import '../model/products_model.dart';
+import '../screens/wishlist.dart';
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  const CustomAppBar({
+
+    List<Product> selectedProducts = [];
+
+   CustomAppBar({
     super.key,
   });
 
@@ -16,7 +22,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         
       ),
       iconTheme: IconThemeData(color: Colors.pink),
-      actions:[IconButton(onPressed: (){Navigator.pushNamed(context, 'wishlist');}, icon: Icon(Icons.favorite))]
+      actions:[IconButton(onPressed: (){ Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => WishList(
+                                                  selectedProducts:
+                                                      selectedProducts),
+                                            ),
+                                          );}, icon: Icon(Icons.favorite))]
     );
   }
   

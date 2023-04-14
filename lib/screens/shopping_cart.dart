@@ -14,7 +14,7 @@ class Shopping_cart extends StatefulWidget {
 class _Shopping_cartState extends State<Shopping_cart> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       bottomNavigationBar: CustomNavBar(),
       drawer: Custom_drawer(),
       appBar: MyAppBar(title: 'Cart'),
